@@ -1,0 +1,16 @@
+{
+  "name": "borozdov-flashcard",
+  "private": true,
+  "description": "A colour-coded study desk on chalk white: indigo ink, iris pill buttons and callouts framed like flashcards in cyan, pink, violet and peach.",
+  "license": "MIT",
+  "scripts": {
+    "lint": "stylelint theme.css",
+    "build": "node scripts/build.mjs",
+    "screenshots": "python3 scripts/screenshots.py"
+  },
+  "devDependencies": {
+    "lucide-static": "^1.47.0",
+    "stylelint": "^17.0.0",
+    "stylelint-config-obsidianmd": "^0.1.0"
+  }
+}

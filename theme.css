@@ -1,0 +1,563 @@
+/*
+  Borozdov Flashcard — an Obsidian theme from the Borozdov collection.
+  Two faces: Midterm (light, a colour-coded study desk on chalk white) and
+  Cram (dark, the same desk the night before the exam). Indigo ink, iris
+  pill buttons and callouts framed like flashcards in violet, cyan, pink,
+  peach and rose.
+  https://github.com/borozdov-obsidian-themes/flashcard
+
+  License: MIT (this file). No embedded fonts.
+*/
+
+/* ===== 1. PALETTE =====
+   Only these values differ by face. Chalk-white paper, white panels and a
+   cool mist border; indigo ink for text and headings. One iris for the
+   pill buttons, links, a checked task, the toggle and the open file, a
+   lilac wash for tags and the highlighter. The flashcard frames keep the
+   same pastels by night, when the paper turns to a deep study-hall navy
+   and the panels to indigo. */
+
+.theme-light {
+  color-scheme: light;
+
+  --canvas: #f6f7fb;
+  --surface: #fff;
+  --card: #fff;
+  --hover: #eef0f6;
+  --hairline: #d9dde8;
+  --strong: #b8bed0;
+  --tertiary: #646d88;
+  --slate: #586380;
+  --ink: #282e3e;
+  --head: #2e3856;
+  --iris: #4255ff;
+  --iris-hover: #3444d9;
+  --on-iris: #fff;
+  --iris-text: #3444d9;
+  --link: #4255ff;
+  --lilac: #edefff;
+  --mark: #dbdfff;
+  --on-mark: #282e3e;
+  --veil: rgb(66 85 255 / 18%);
+  --scrim: rgb(40 46 62 / 40%);
+  --lift: 0 4px 16px rgb(40 46 62 / 10%);
+  --press: 0 2px 4px rgb(40 46 62 / 10%);
+  --on-warning: #fff;
+  --accent-h: 235;
+  --accent-s: 100%;
+  --accent-l: 63%;
+  --color-red: #b42318;
+  --color-orange: #9a4a06;
+  --color-yellow: #735c00;
+  --color-green: #1d6b3c;
+  --color-cyan: #0e6b78;
+  --color-blue: #3444d9;
+  --color-purple: #6a3fc2;
+  --color-pink: #a3306c;
+  --color-red-rgb: 180, 35, 24;
+  --color-orange-rgb: 154, 74, 6;
+  --color-yellow-rgb: 115, 92, 0;
+  --color-green-rgb: 29, 107, 60;
+  --color-cyan-rgb: 14, 107, 120;
+  --color-blue-rgb: 52, 68, 217;
+  --color-purple-rgb: 106, 63, 194;
+  --color-pink-rgb: 163, 48, 108;
+  --code-comment: #646d88;
+  --code-function: #3444d9;
+  --code-keyword: #6a3fc2;
+  --code-operator: #586380;
+  --code-property: #0e6b78;
+  --code-punctuation: #586380;
+  --code-string: #1d6b3c;
+  --code-tag: #a3306c;
+  --code-value: #9a4a06;
+  --code-important: #b42318;
+}
+
+.theme-dark {
+  color-scheme: dark;
+
+  --canvas: #0a092d;
+  --surface: #0f0e36;
+  --card: #2e3856;
+  --hover: #262f4b;
+  --hairline: #3a4666;
+  --strong: #586380;
+  --tertiary: #a8b0c8;
+  --slate: #d9dde8;
+  --ink: #f6f7fb;
+  --head: #fff;
+  --iris: #4255ff;
+  --iris-hover: #5a6bff;
+  --on-iris: #fff;
+  --iris-text: #c8cdff;
+  --link: #a8b1ff;
+  --lilac: #2e3856;
+  --mark: #a8b1ff;
+  --on-mark: #0a092d;
+  --veil: rgb(168 177 255 / 26%);
+  --scrim: rgb(4 4 20 / 72%);
+  --lift: 0 0 0 1px var(--hairline);
+  --press: none;
+  --on-warning: #0a092d;
+  --accent-h: 235;
+  --accent-s: 100%;
+  --accent-l: 63%;
+  --color-red: #ff9a9a;
+  --color-orange: #ffbd7a;
+  --color-yellow: #e8d27a;
+  --color-green: #8fd9a8;
+  --color-cyan: #7fd3de;
+  --color-blue: #a8b1ff;
+  --color-purple: #cbb5ff;
+  --color-pink: #f7a0c8;
+  --color-red-rgb: 255, 154, 154;
+  --color-orange-rgb: 255, 189, 122;
+  --color-yellow-rgb: 232, 210, 122;
+  --color-green-rgb: 143, 217, 168;
+  --color-cyan-rgb: 127, 211, 222;
+  --color-blue-rgb: 168, 177, 255;
+  --color-purple-rgb: 203, 181, 255;
+  --color-pink-rgb: 247, 160, 200;
+  --code-comment: #a8b0c8;
+  --code-function: #a8b1ff;
+  --code-keyword: #cbb5ff;
+  --code-operator: #d9dde8;
+  --code-property: #7fd3de;
+  --code-punctuation: #d9dde8;
+  --code-string: #8fd9a8;
+  --code-tag: #f7a0c8;
+  --code-value: #ffbd7a;
+  --code-important: #ff9a9a;
+}
+
+/* The flashcard frames and the ink written on them are the same on both
+   faces. */
+body {
+  --frame-violet: #cfd3ff;
+  --frame-cyan: #a8ecf2;
+  --frame-pink: #ffc9ec;
+  --frame-peach: #ffd5ad;
+  --frame-rose: #ffc3c3;
+  --frame-mist: #e3e6ef;
+  --on-frame: #2e3856;
+}
+
+/* ===== 2. TYPE & SHAPE =====
+   Approachable and never shouting: the platform's sans at 400 for text,
+   600 at most for the title and headings. Pills for every button and
+   tag, 8px on cards and code, 4px on fields, 24px on flashcard frames. */
+
+body {
+  --font-interface-theme: -apple-system, "BlinkMacSystemFont", "Segoe UI",
+    "Roboto", "Helvetica Neue", "Arial", sans-serif;
+  --font-text-theme: -apple-system, "BlinkMacSystemFont", "Segoe UI",
+    "Roboto", "Helvetica Neue", "Arial", sans-serif;
+  --font-monospace-theme: "SFMono-Regular", "SF Mono", "JetBrains Mono",
+    ui-monospace, "Menlo", "Consolas", monospace;
+  --line-height-normal: 1.6;
+  --bold-weight: 600;
+  --radius-s: 4px;
+  --radius-m: 8px;
+  --radius-l: 12px;
+  --radius-xl: 24px;
+  --input-radius: 4px;
+  --button-radius: 200px;
+  --checkbox-radius: 4px;
+  --checkbox-color: var(--iris);
+  --checkbox-color-hover: var(--iris-hover);
+  --checkbox-marker-color: var(--on-iris);
+  --input-shadow: none;
+  --input-shadow-hover: none;
+  --h1-size: 1.95em; --h2-size: 1.5em; --h3-size: 1.25em;
+  --h4-size: 1.1em; --h5-size: 1em; --h6-size: 0.9em;
+  --h1-weight: 600; --h2-weight: 600; --h3-weight: 600;
+  --h4-weight: 600; --h5-weight: 600; --h6-weight: 600;
+  --inline-title-size: 2.3em;
+  --inline-title-weight: 600;
+  --h1-line-height: 1.2; --h2-line-height: 1.25; --h3-line-height: 1.3;
+  --h4-line-height: 1.35; --h5-line-height: 1.4; --h6-line-height: 1.4;
+  --inline-title-color: var(--head);
+  --h1-color: var(--head); --h2-color: var(--head); --h3-color: var(--head);
+  --h4-color: var(--head); --h5-color: var(--ink); --h6-color: var(--slate);
+}
+
+/* ===== 3. BASE VARIABLE MAPPING =====
+   Set on .theme-dark / .theme-light, where Obsidian declares them too; the
+   theme loads later and wins the tie. */
+
+.theme-dark,
+.theme-light {
+  --background-primary: var(--canvas);
+  --background-primary-alt: var(--card);
+  --background-secondary: var(--surface);
+  --background-secondary-alt: var(--canvas);
+  --background-modifier-hover: var(--hover);
+  --background-modifier-active-hover: var(--hover);
+  --background-modifier-border: var(--hairline);
+  --background-modifier-border-hover: var(--strong);
+  --background-modifier-border-focus: var(--iris);
+  --background-modifier-form-field: var(--card);
+  --text-normal: var(--ink);
+  --text-muted: var(--slate);
+  --text-faint: var(--tertiary);
+  --text-accent: var(--link);
+  --text-accent-hover: var(--link);
+  --text-on-accent: var(--on-iris);
+  --text-on-accent-inverted: var(--on-iris);
+  --text-selection: var(--veil);
+  --text-highlight-bg: var(--mark);
+  --color-accent: var(--iris);
+  --color-accent-1: var(--iris);
+  --color-accent-2: var(--iris-hover);
+  --interactive-accent: var(--iris);
+  --interactive-accent-hover: var(--iris-hover);
+  --interactive-normal: var(--card);
+  --interactive-hover: var(--hover);
+  --divider-color: var(--hairline);
+  --caret-color: var(--iris);
+  --tab-container-background: var(--surface);
+  --titlebar-background: var(--surface);
+  --titlebar-background-focused: var(--surface);
+  --ribbon-background: var(--surface);
+  --ribbon-background-collapsed: var(--canvas);
+  --status-bar-background: var(--surface);
+  --nav-item-background-hover: var(--hover);
+  --nav-item-background-active: var(--lilac);
+  --nav-item-color-active: var(--iris-text);
+  --nav-item-background-selected: var(--hover);
+  --nav-item-color-selected: var(--ink);
+  --nav-indentation-guide-color: var(--hairline);
+  --callout-default: var(--on-frame);
+  --callout-info: var(--on-frame);
+  --callout-todo: var(--on-frame);
+  --callout-summary: var(--on-frame);
+  --callout-tip: var(--on-frame);
+  --callout-important: var(--on-frame);
+  --callout-success: var(--on-frame);
+  --callout-question: var(--on-frame);
+  --callout-warning: var(--on-frame);
+  --callout-fail: var(--on-frame);
+  --callout-error: var(--on-frame);
+  --callout-bug: var(--on-frame);
+  --callout-example: var(--on-frame);
+  --callout-quote: var(--on-frame);
+}
+
+/* The open file is a lilac pill in iris. */
+.nav-file-title.is-active {
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+/* The highlighter is a lilac mark with the ink kept on top; by night the
+   swatch is solid, so it never muddies. Search matches keep Obsidian's own
+   colours. */
+.markdown-rendered mark,
+.markdown-rendered mark .internal-link,
+.cm-s-obsidian span.cm-formatting-highlight,
+.cm-s-obsidian span.cm-highlight:not(.obsidian-search-match-highlight) {
+  color: var(--on-mark);
+}
+
+.markdown-rendered mark {
+  border-radius: 4px;
+  padding: 0.05em 0.25em;
+}
+
+/* ===== 4. LINKS ===== */
+
+body {
+  --link-color: var(--link);
+  --link-color-hover: var(--link);
+  --link-external-color: var(--link);
+  --link-external-color-hover: var(--link);
+  --link-decoration: none;
+  --link-decoration-hover: underline;
+  --link-external-decoration: none;
+  --link-external-decoration-hover: underline;
+  --link-unresolved-color: var(--link);
+  --link-unresolved-opacity: 0.65;
+  --link-unresolved-decoration-style: dotted;
+}
+
+/* ===== 5. CALLOUTS =====
+   Every callout is a flashcard: a coloured frame with 24px corners that
+   carries the title in indigo, around a panel with 14px corners for the
+   text. Violet for notes, cyan for tips and what is done, pink for
+   questions and examples, peach for warnings, rose for trouble. */
+
+body {
+  --callout-border-width: 0;
+  --callout-radius: 24px;
+  --callout-padding: 0.6rem;
+  --callout-title-padding: 0.35rem 0.6rem 0.6rem;
+  --callout-title-weight: 700;
+  --callout-content-padding: 0.8rem 1rem;
+  --callout-content-background: var(--card);
+  --callout-blend-mode: normal;
+}
+
+.callout {
+  background-color: var(--frame-violet);
+}
+
+.callout-content {
+  border-radius: 14px;
+  color: var(--ink);
+}
+
+.callout[data-callout="tip"], .callout[data-callout="hint"],
+.callout[data-callout="success"], .callout[data-callout="check"],
+.callout[data-callout="done"] {
+  background-color: var(--frame-cyan);
+}
+
+.callout[data-callout="question"], .callout[data-callout="help"],
+.callout[data-callout="faq"], .callout[data-callout="example"],
+.callout[data-callout="important"] {
+  background-color: var(--frame-pink);
+}
+
+.callout[data-callout="warning"], .callout[data-callout="caution"],
+.callout[data-callout="attention"] {
+  background-color: var(--frame-peach);
+}
+
+.callout[data-callout="danger"], .callout[data-callout="error"],
+.callout[data-callout="bug"], .callout[data-callout="failure"],
+.callout[data-callout="fail"], .callout[data-callout="missing"] {
+  background-color: var(--frame-rose);
+}
+
+.callout[data-callout="quote"], .callout[data-callout="cite"] {
+  background-color: var(--frame-mist);
+}
+
+.callout-content > :first-child { margin-top: 0; }
+.callout-content > :last-child { margin-bottom: 0; }
+
+/* ===== 6. CODE ===== */
+
+body {
+  --code-background: var(--card);
+  --code-normal: var(--ink);
+  --code-radius: 4px;
+  --code-border-width: 1px;
+  --code-border-color: var(--hairline);
+}
+
+.markdown-rendered pre {
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+}
+
+/* ===== 7. BLOCKQUOTE ===== */
+
+body {
+  --blockquote-border-thickness: 3px;
+  --blockquote-border-color: var(--iris);
+  --blockquote-color: var(--slate);
+  --blockquote-font-style: normal;
+}
+
+/* ===== 8. TAGS =====
+   Lilac pills in iris. */
+
+body {
+  --tag-size: 0.8em;
+  --tag-weight: 600;
+  --tag-radius: 200px;
+  --tag-padding-x: 0.75em;
+  --tag-padding-y: 0.22em;
+  --tag-border-width: 0;
+  --tag-color: var(--iris-text);
+  --tag-color-hover: var(--iris-text);
+  --tag-background: var(--lilac);
+  --tag-background-hover: var(--mark);
+  --tag-decoration-hover: none;
+}
+
+/* ===== 9. TABLES =====
+   A white card with a mist frame, 8px corners and a chalk header. */
+
+body {
+  --table-border-width: 1px;
+  --table-column-first-border-width: 0;
+  --table-column-last-border-width: 0;
+  --table-header-border-width: 0;
+  --table-row-last-border-width: 0;
+  --table-border-color: var(--hairline);
+  --table-header-background: var(--canvas);
+  --table-header-background-hover: var(--hover);
+  --table-header-border-color: var(--hairline);
+  --table-header-size: 0.88em;
+  --table-header-weight: 600;
+  --table-header-color: var(--head);
+  --table-row-background-hover: var(--hover);
+  --table-row-alt-background: transparent;
+  --table-row-alt-background-hover: var(--hover);
+}
+
+.markdown-rendered table {
+  background-color: var(--card);
+  border: var(--table-border-width) solid var(--table-border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* The frame belongs to the table so it follows the corners; cells draw only
+   the inner grid, an end and a bottom line, none on the outer edges. */
+.markdown-rendered th,
+.markdown-rendered td {
+  border-block-start-width: 0;
+  border-inline-start-width: 0;
+}
+
+.markdown-rendered tr > :last-child {
+  border-inline-end-width: 0;
+}
+
+.markdown-rendered table > :last-child > tr:last-child > * {
+  border-block-end-width: 0;
+}
+
+/* ===== 10. BUTTONS =====
+   Pills. Plain buttons are white behind a mist border; the one that
+   matters is iris with white on it. The copy button on a code block keeps
+   Obsidian's own quiet icon. */
+
+button:not(.clickable-icon, .copy-code-button) {
+  background-color: var(--card);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--press);
+  color: var(--ink);
+  font-weight: 600;
+  padding: 0 1.2em;
+}
+
+@media (hover: hover) {
+  button:not(.clickable-icon, .copy-code-button):hover {
+    background-color: var(--hover);
+  }
+}
+
+button.mod-cta:not(.clickable-icon) {
+  background-color: var(--iris);
+  border-color: var(--iris);
+  color: var(--on-iris);
+}
+
+@media (hover: hover) {
+  button.mod-cta:not(.clickable-icon):hover {
+    background-color: var(--iris-hover);
+    border-color: var(--iris-hover);
+  }
+}
+
+button.mod-warning:not(.clickable-icon) {
+  background-color: var(--color-red);
+  border-color: var(--color-red);
+  color: var(--on-warning);
+}
+
+/* ===== 11. FIELDS & PROPERTIES ===== */
+
+select.dropdown, input[type="text"], input[type="search"], input[type="number"],
+textarea {
+  /* background-color, not the `background` shorthand: the shorthand resets
+     the dropdown's own arrow image. */
+  background-color: var(--background-modifier-form-field);
+  border: 1px solid var(--hairline);
+}
+
+input[type="search"] {
+  border-radius: 200px;
+}
+
+/* No focus ring while typing: the caret and the selection already show
+   where you are. Covers form fields and every contenteditable surface. */
+select.dropdown:focus, input:focus, textarea:focus,
+select.dropdown:focus-visible, input:focus-visible, textarea:focus-visible,
+[contenteditable]:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+/* A property's key is a label, not a field. input.* matches the frame rule
+   above at (0,1,1), so the element prefix is needed to win it. */
+input.metadata-property-key-input {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+body {
+  --pill-background: var(--lilac);
+  --pill-background-hover: var(--mark);
+  --pill-border-color: transparent;
+  --pill-border-color-hover: transparent;
+  --pill-color: var(--iris-text);
+  --pill-color-hover: var(--iris-text);
+}
+
+/* ===== 12. SURFACES =====
+   Soft-edged cards; floating panels lift on the gentle study-card shadow. */
+
+.modal-bg {
+  background-color: var(--scrim);
+}
+
+.modal, .menu, div.popover, .suggestion-container, .prompt {
+  background-color: var(--card);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  box-shadow: var(--lift);
+}
+
+/* Obsidian pads an embed only on the left, for an accent bar this theme
+   doesn't draw. Even padding all round, with room for the open-link icon. */
+body {
+  --embed-padding: var(--size-4-3) var(--size-4-8) var(--size-4-3) var(--size-4-4);
+  --embed-border-start: none;
+}
+
+.markdown-embed {
+  background-color: var(--card);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+}
+
+/* A hover preview is already a panel: the embed inside it stays flat. */
+.popover.hover-popover > .markdown-embed {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+hr, .cm-hr { border-color: var(--hairline); }
+
+/* ===== 13. MOBILE =====
+   The phone layout re-declares tag and field colors on .is-mobile.theme-*,
+   outranking the rules above; the same selectors bring them back. */
+
+.is-mobile.theme-dark,
+.is-mobile.theme-light {
+  --tag-background: var(--lilac);
+  --background-modifier-form-field: var(--card);
+  --background-modifier-hover: var(--hover);
+}
+
+/* ===== 14. REDUCED MOTION ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    --anim-duration-superfast: 0s;
+    --anim-duration-fast: 0s;
+    --anim-duration-moderate: 0s;
+    --anim-duration-slow: 0s;
+  }
+}
